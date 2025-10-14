@@ -1,15 +1,15 @@
 import { serve } from "https://deno.land/std@0.200.0/http/server.ts";
 import { serveDir } from "https://deno.land/std@0.200.0/http/file_server.ts";
 
-serve(async (req) => {
+serve(async (req: Request) => {
     const pathname = new URL(req.url).pathname;
 
     if (pathname === "/generate") {
         try {
             // --- 修改 1: 从接收 "image" 改为接收 "images" 数组 ---
             // 确保 images 是一个数组，如果没传则默认为空数组
-            const { prompt, images, apikey } = await req.json();
-            const openrouterApiKey = apikey || Deno.env.get("OPENROUTER_API_KEY");
+            const { prompt, images, aspectRatio } = await req.json();
+            const openrouterApiKey = Deno.env.get("OPENROUTER_API_KEY");
 
             if (!openrouterApiKey) {
                 return new Response(JSON.stringify({ error: "OpenRouter API key is not set." }), { status: 500, headers: { "Content-Type": "application/json" } });
@@ -30,13 +30,20 @@ serve(async (req) => {
                 contentPayload[0].text = `根据我上传的这几张图片，${prompt}`;
             }
 
-            const openrouterPayload = {
+            const openrouterPayload: any = {
                 model: "google/gemini-2.5-flash-image-preview:free",
                 messages: [
                     { role: "user", content: contentPayload },
                 ],
                 modalities: ["image"]
             };
+
+            // 如果选择了比例，添加到配置中
+            if (aspectRatio) {
+                openrouterPayload.image_config = {
+                    aspect_ratio: aspectRatio
+                };
+            }
 
             // --- 修改 3: 添加日志，用于调试发送的参数 ---
             console.log("Sending payload to OpenRouter:", JSON.stringify(openrouterPayload, null, 2));
@@ -86,9 +93,9 @@ serve(async (req) => {
                 headers: { "Content-Type": "application/json" },
             });
 
-        } catch (error) {
+        } catch (error: any) {
             console.error("Error handling /generate request:", error);
-            return new Response(JSON.stringify({ error: error.message }), { status: 500, headers: { "Content-Type": "application/json" } });
+            return new Response(JSON.stringify({ error: error.message || "Unknown error" }), { status: 500, headers: { "Content-Type": "application/json" } });
         }
     }
 
