@@ -8,7 +8,7 @@
 </head>
 <body>
     <header class="header">
-        <h1 class="title">🍌 nano banana</h1>
+        <h1 class="title">nano banana</h1>
         <div class="auth-buttons">
             <button class="auth-btn">注册</button>
             <button class="auth-btn">登录</button>
@@ -16,23 +16,7 @@
     </header>
     <div class="main-container">
         <div class="controls-container">
-            <div class="aspect-ratio-section">
-                <h2>设置</h2>
-                <label for="aspect-ratio-select">选择图片比例：</label>
-                <select id="aspect-ratio-select">
-                    <option value="">原图（默认）</option>
-                    <option value="1:1">1:1</option>
-                    <option value="2:3">2:3</option>
-                    <option value="3:2">3:2</option>
-                    <option value="3:4">3:4</option>
-                    <option value="4:3">4:3</option>
-                    <option value="4:5">4:5</option>
-                    <option value="5:4">5:4</option>
-                    <option value="9:16">9:16</option>
-                    <option value="16:9">16:9</option>
-                    <option value="21:9">21:9</option>
-                </select>
-            </div>
+
             <div class="upload-section">
                 <h2>1. 上传图片</h2>
                 <div class="upload-area">
@@ -48,6 +32,24 @@
             <div class="prompt-section">
                 <h2>2. 输入提示词</h2>
                 <textarea id="prompt-input" placeholder="例如：一只穿着超级英雄斗篷的猫，电影级灯光"></textarea>
+            </div>
+
+            <div class="aspect-ratio-section">
+                <h2>3. 选择图片比例</h2>
+                <label for="aspect-ratio-select">图片比例：</label>
+                <select id="aspect-ratio-select">
+                    <option value="">原图（默认）</option>
+                    <option value="1:1">1:1</option>
+                    <option value="2:3">2:3</option>
+                    <option value="3:2">3:2</option>
+                    <option value="3:4">3:4</option>
+                    <option value="4:3">4:3</option>
+                    <option value="4:5">4:5</option>
+                    <option value="5:4">5:4</option>
+                    <option value="9:16">9:16</option>
+                    <option value="16:9">16:9</option>
+                    <option value="21:9">21:9</option>
+                </select>
             </div>
 
             <button id="generate-btn">
