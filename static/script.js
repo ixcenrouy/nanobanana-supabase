@@ -3,13 +3,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileInput = document.getElementById('image-upload');
     const thumbnailsContainer = document.getElementById('thumbnails-container');
     const promptInput = document.getElementById('prompt-input');
-    const apiKeyInput = document.getElementById('api-key-input');
+    const aspectRatioSelect = document.getElementById('aspect-ratio-select');
     const generateBtn = document.getElementById('generate-btn');
     const btnText = generateBtn.querySelector('.btn-text');
     const spinner = generateBtn.querySelector('.spinner');
     const resultContainer = document.getElementById('result-image-container');
+    const authButtons = document.querySelectorAll('.auth-btn');
 
     let selectedFiles = [];
+
+    // 注册和登录按钮事件
+    authButtons.forEach((btn, index) => {
+        btn.addEventListener('click', () => {
+            const action = index === 0 ? '注册' : '登录';
+            alert(`${action}功能正在开发中...`);
+        });
+    });
 
     // 拖放功能
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
@@ -79,11 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 核心修改区域开始 ---
     generateBtn.addEventListener('click', async () => {
-        if (!apiKeyInput.value.trim()) {
-            alert('请输入 OpenRouter API 密钥');
-            return;
-        }
-
         if (selectedFiles.length === 0) {
             alert('请选择至少一张图片');
             return;
@@ -103,17 +107,25 @@ document.addEventListener('DOMContentLoaded', () => {
             // 2. 等待所有文件转换完成
             const base64Images = await Promise.all(conversionPromises);
             
-            // 3. 发送包含 images 数组的请求
+            // 3. 构建请求数据
+            const requestData = {
+                prompt: promptInput.value,
+                images: base64Images, // 注意：这里从 'image' 改为了 'images'，并且值是一个数组
+            };
+
+            // 4. 如果选择了一个比例，添加到请求中
+            const selectedAspectRatio = aspectRatioSelect.value;
+            if (selectedAspectRatio) {
+                requestData.aspectRatio = selectedAspectRatio;
+            }
+            
+            // 5. 发送请求
             const response = await fetch('/generate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    prompt: promptInput.value,
-                    images: base64Images, // 注意：这里从 'image' 改为了 'images'，并且值是一个数组
-                    apikey: apiKeyInput.value
-                })
+                body: JSON.stringify(requestData)
             });
 
             const data = await response.json();
