@@ -7,13 +7,31 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1 class="title">🍌 nano banana</h1>
-    <p class="subtitle">(模型: google/gemini-2.5-flash-image-preview:free)</p>
+    <header class="header">
+        <h1 class="title">🍌 nano banana</h1>
+        <div class="auth-buttons">
+            <button class="auth-btn">注册</button>
+            <button class="auth-btn">登录</button>
+        </div>
+    </header>
     <div class="main-container">
         <div class="controls-container">
-            <div class="api-key-section">
+            <div class="aspect-ratio-section">
                 <h2>设置</h2>
-                <input type="password" id="api-key-input" placeholder="输入你的 OpenRouter API 密钥 (必填)">
+                <label for="aspect-ratio-select">选择图片比例：</label>
+                <select id="aspect-ratio-select">
+                    <option value="">原图（默认）</option>
+                    <option value="1:1">1:1</option>
+                    <option value="2:3">2:3</option>
+                    <option value="3:2">3:2</option>
+                    <option value="3:4">3:4</option>
+                    <option value="4:3">4:3</option>
+                    <option value="4:5">4:5</option>
+                    <option value="5:4">5:4</option>
+                    <option value="9:16">9:16</option>
+                    <option value="16:9">16:9</option>
+                    <option value="21:9">21:9</option>
+                </select>
             </div>
             <div class="upload-section">
                 <h2>1. 上传图片</h2>
