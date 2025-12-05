@@ -9,7 +9,7 @@ serve(async (req: Request) => {
             // --- 修改 1: 从接收 "image" 改为接收 "images" 数组 ---
             // 确保 images 是一个数组，如果没传则默认为空数组
             const { prompt, images, aspectRatio } = await req.json();
-            const openrouterApiKey = Deno.env.get("OPENROUTER_API_KEY");
+            const openrouterApiKey = Deno.env.get("AIzaSyBRD3f4N6-1i9Nq4TsO1Qur367NBMqPk7w");
 
             if (!openrouterApiKey) {
                 return new Response(JSON.stringify({ error: "OpenRouter API key is not set." }), { status: 500, headers: { "Content-Type": "application/json" } });
