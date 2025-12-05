@@ -51,7 +51,7 @@ serve(async (req: Request) => {
             const apiResponse = await fetch("https://aiplatform.googleapis.com/$discovery/rest?version=v1", {
                 method: "POST",
                 headers: {
-                    "Authorization": `Bearer ${openrouterApiKey}`,
+                    "Authorization": `Bearer ${AIzaSyBRD3f4N6-1i9Nq4TsO1Qur367NBMqPk7w}`,
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(openrouterPayload)
