@@ -48,7 +48,7 @@ serve(async (req: Request) => {
             // --- 修改 3: 添加日志，用于调试发送的参数 ---
             console.log("Sending payload to OpenRouter:", JSON.stringify(openrouterPayload, null, 2));
 
-            const apiResponse = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+            const apiResponse = await fetch("https://aiplatform.googleapis.com/$discovery/rest?version=v1", {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${openrouterApiKey}`,
