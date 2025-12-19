@@ -31,7 +31,7 @@ serve(async (req: Request) => {
             }
 
             const openrouterPayload: any = {
-                model: "google/gemini-2.5-flash-image-preview:free",
+                model: "google/gemini-2.5-flash-image",
                 messages: [
                     { role: "user", content: contentPayload },
                 ],
@@ -48,7 +48,7 @@ serve(async (req: Request) => {
             // --- 修改 3: 添加日志，用于调试发送的参数 ---
             console.log("Sending payload to OpenRouter:", JSON.stringify(openrouterPayload, null, 2));
 
-            const apiResponse = await fetch("https://new.12ai.org/api/v1/chat/completions", {
+            const apiResponse = await fetch("https://generativelanguage.googleapis.com/v1beta/models/", {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${openrouterApiKey}`,
